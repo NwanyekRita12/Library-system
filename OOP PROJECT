@@ -1,0 +1,132 @@
+import sqlite3
+
+# Connect to the database
+conn = sqlite3.connect('library.db')
+c = conn.cursor()
+
+# Create the users table
+c.execute('''CREATE TABLE IF NOT EXISTS users
+             (user_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, email TEXT, address TEXT)''')
+
+# Create the books table
+c.execute('''CREATE TABLE IF NOT EXISTS books
+             (book_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, author TEXT, category TEXT, available BOOLEAN)''')
+
+# Create the borrowings table
+c.execute('''CREATE TABLE IF NOT EXISTS borrowings
+             (borrowing_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, book_id INTEGER, borrow_date TEXT, return_date TEXT, FOREIGN KEY (user_id) REFERENCES users(user_id), FOREIGN KEY (book_id) REFERENCES books(book_id))''')
+
+# User sign-up function
+def sign_up():
+    username = input("Enter a username: ")
+    password = input("Enter a password: ")
+    email = input("Enter an email: ")
+    address = input("Enter an address: ")
+
+    try:
+        c.execute("INSERT INTO users (username, password, email, address) VALUES (?, ?, ?, ?)", (username, password, email, address))
+        conn.commit()
+        print("User registered successfully.")
+    except sqlite3.IntegrityError:
+        print("Username already exists. Please choose a different username.")
+
+# User login function
+def login():
+    username = input("Enter your username: ")
+    password = input("Enter your password: ")
+
+    c.execute("SELECT user_id FROM users WHERE username = ? AND password = ?", (username, password))
+    user_id = c.fetchone()
+
+    if user_id:
+        print("Login successful.")
+        return user_id[0]
+    else:
+        print("Invalid username or password.")
+        return None
+
+# Search the catalog function
+def search_catalog():
+    search_term = input("Enter a search term (title, author, or category): ")
+    c.execute("SELECT title, author, category, available FROM books WHERE title LIKE ? OR author LIKE ? OR category LIKE ?", ('%' + search_term + '%', '%' + search_term + '%', '%' + search_term + '%'))
+    results = c.fetchall()
+
+    if results:
+        print("Search results:")
+        for book in results:
+            print(f"Title: {book[0]}, Author: {book[1]}, Category: {book[2]}, Available: {'Yes' if book[3] else 'No'}")
+    else:
+        print("No results found.")
+
+# Borrow a book function
+def borrow_book(user_id):
+    search_catalog()
+    book_id = int(input("Enter the book ID you want to borrow: "))
+
+    c.execute("SELECT available FROM books WHERE book_id = ?", (book_id,))
+    available = c.fetchone()[0]
+
+    if available:
+        c.execute("UPDATE books SET available = 0 WHERE book_id = ?", (book_id,))
+        c.execute("INSERT INTO borrowings (user_id, book_id, borrow_date) VALUES (?, ?, DATE('now'))", (user_id, book_id))
+        conn.commit()
+        print("Book borrowed successfully.")
+    else:
+        print("Sorry, the book is not available.")
+
+# Return a book function
+def return_book(user_id):
+    c.execute("SELECT b.title, b.book_id, b.available, br.return_date "
+              "FROM borrowings br "
+              "JOIN books b ON br.book_id = b.book_id "
+              "WHERE br.user_id = ? AND br.return_date IS NULL", (user_id,))
+    borrowed_books = c.fetchall()
+
+    if borrowed_books:
+        print("Your borrowed books:")
+        for book in borrowed_books:
+            print(f"Title: {book[0]}, Book ID: {book[1]}, Available: {'Yes' if book[2] else 'No'}, Return Date: {book[3]}")
+
+        book_id = int(input("Enter the book ID you want to return: "))
+        c.execute("UPDATE books SET available = 1 WHERE book_id = ?", (book_id,))
+        c.execute("UPDATE borrowings SET return_date = DATE('now') WHERE user_id = ? AND book_id = ?", (user_id, book_id))
+        conn.commit()
+        print("Book returned successfully.")
+    else:
+        print("You don't have any borrowed books.")
+
+# Main program loop
+while True:
+    print("\nLibrary Management System")
+    print("1. Sign up")
+    print("2. Login")
+    print("3. Search catalog")
+    print("4. Borrow a book")
+    print("5. Return a book")
+    print("6. Exit")
+
+    choice = input("Enter your choice (1-6): ")
+
+    if choice == "1":
+        sign_up()
+    elif choice == "2":
+        user_id = login()
+    elif choice == "3":
+        search_catalog()
+    elif choice == "4":
+        if user_id:
+            borrow_book(user_id)
+        else:
+            print("Please login first.")
+    elif choice == "5":
+        if user_id:
+            return_book(user_id)
+        else:
+            print("Please login first.")
+    elif choice == "6":
+        print("Exiting the program...")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+
+conn.close()
