@@ -1,0 +1,14 @@
+def Open_Day_To_Day_Tab(self):
+        self.tabWidget.setCurrentIndex(0)
+
+    def Open_Books_Tab(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    def Open_CLients_Tab(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    def Open_Users_Tab(self):
+        self.tabWidget.setCurrentIndex(3)
+
+    def Open_Settings_Tab(self):
+        self.tabWidget.setCurrentIndex(4)
