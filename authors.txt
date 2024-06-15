@@ -1,0 +1,22 @@
+ Table structure for table `authors`
+--
+
+DROP TABLE IF EXISTS `authors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authors` (
+  `idauthor` int(11) NOT NULL AUTO_INCREMENT,
+  `author_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idauthor`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authors`
+--
+
+LOCK TABLES `authors` WRITE;
+/*!40000 ALTER TABLE `authors` DISABLE KEYS */;
+INSERT INTO `authors` VALUES (1,'Mahmoud Ahmed'),(2,'sayed'),(3,'ali');
+/*!40000 ALTER TABLE `authors` ENABLE KEYS */;
+UNLOCK TABLES;
