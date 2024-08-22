@@ -1,0 +1,266 @@
+<div className="flex flex-col min-h-screen">
+      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <Avatar>
+            <AvatarImage src="/placeholder-user.jpg" alt="User Avatar" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-xl font-semibold">Nwanyek Rita</h1>
+            <p className="text-sm text-primary-foreground/80">Pixio Customer</p>
+          </div>
+        </div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#profile" className="px-4 py-2 rounded-md hover:bg-primary/20">
+                Profile
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#orders" className="px-4 py-2 rounded-md hover:bg-primary/20">
+                Orders
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#wishlist" className="px-4 py-2 rounded-md hover:bg-primary/20">
+                Wishlist
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink href="#settings" className="px-4 py-2 rounded-md hover:bg-primary/20">
+                Settings
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </header>
+      <div className="bg-yellow-500 text-yellow-900 py-3 px-6 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <CircleAlertIcon className="w-5 h-5" />
+          <p>New products added to your wishlist. Check them out!</p>
+        </div>
+        <Button variant="outline" size="sm" className="ml-auto">
+          View Wishlist
+        </Button>
+      </div>
+      <main className="flex-1 p-6">
+        <section id="refine" className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Refine Products</h2>
+          <Card>
+            <CardContent>
+              <div className="grid gap-6">
+                <div className="grid gap-2">
+                  <Label htmlFor="category">Category</Label>
+                  <Select id="category">
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="electronics">Electronics</SelectItem>
+                      <SelectItem value="clothing">Clothing</SelectItem>
+                      <SelectItem value="home">Home & Garden</SelectItem>
+                      <SelectItem value="sports">Sports & Outdoors</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="price">Price Range</Label>
+                  <div>
+                    <div>
+                      <div />
+                    </div>
+                    <div />
+                    <div />
+                  </div>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="rating">Minimum Rating</Label>
+                  <div />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="brand">Brand</Label>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Checkbox id="brand-pixio" value="pixio" />
+                      <Label htmlFor="brand-pixio">Pixio</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Checkbox id="brand-logitech" value="logitech" />
+                      <Label htmlFor="brand-logitech">Logitech</Label>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Checkbox id="brand-razer" value="razer" />
+                      <Label htmlFor="brand-razer">Razer</Label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button className="ml-auto">Apply Filters</Button>
+            </CardFooter>
+          </Card>
+        </section>
+        <section id="products" className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Products</h2>
+          <div className="grid sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+            <Card>
+              <CardContent>
+                <img
+                  src="/placeholder.svg"
+                  alt="Product Image"
+                  width={200}
+                  height={200}
+                  className="rounded-md object-cover w-full aspect-square"
+                />
+                <div className="mt-4 grid gap-2">
+                  <h3 className="font-semibold">Pixio Wireless Headphones</h3>
+                  <p className="text-muted-foreground">$99.99</p>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">(42)</span>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  Add to Cart
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card>
+              <CardContent>
+                <img
+                  src="/placeholder.svg"
+                  alt="Product Image"
+                  width={200}
+                  height={200}
+                  className="rounded-md object-cover w-full aspect-square"
+                />
+                <div className="mt-4 grid gap-2">
+                  <h3 className="font-semibold">Pixio Gaming Mouse</h3>
+                  <p className="text-muted-foreground">50</p>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">(68)</span>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  Add to Cart
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card>
+              <CardContent>
+                <img
+                  src="/placeholder.svg"
+                  alt="Product Image"
+                  width={200}
+                  height={200}
+                  className="rounded-md object-cover w-full aspect-square"
+                />
+                <div className="mt-4 grid gap-2">
+                  <h3 className="font-semibold">Pixio Gaming Keyboard</h3>
+                  <p className="text-muted-foreground">47,070.12</p>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">(29)</span>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  Add to Cart
+                </Button>
+              </CardFooter>
+            </Card>
+            <Card>
+              <CardContent>
+                <img
+                  src="/placeholder.svg"
+                  alt="Product Image"
+                  width={200}
+                  height={200}
+                  className="rounded-md object-cover w-full aspect-square"
+                />
+                <div className="mt-4 grid gap-2">
+                  <h3 className="font-semibold">Pixio Gaming Monitor</h3>
+                  <p className="text-muted-foreground">199.99</p>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-primary" />
+                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">(84)</span>
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="w-full">
+                  Add to Cart
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
+}
+
+function CircleAlertIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" x2="12" y1="8" y2="12" />
+      <line x1="12" x2="12.01" y1="16" y2="16" />
+    </svg>
+  )
+}
+
+
+function StarIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  )
+}
